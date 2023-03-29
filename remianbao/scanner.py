@@ -46,7 +46,7 @@ class Scanner:
         if c == "?":
             self._savetk(Token(tt=TokenType.questionmark, literal=c))
         elif c == "!":
-            self._sendtk(Token(tt=TokenType.bang, literal=c))
+            self._savetk(Token(tt=TokenType.bang, literal=c))
         elif c == "(":
             self._savetk(Token(tt=TokenType.leftparen, literal=c))
         elif c == ")":

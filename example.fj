@@ -1,0 +1,4 @@
+hello -> print("hey").
+fallback -> hello.
+main ->
+    hello.

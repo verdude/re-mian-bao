@@ -1,0 +1,22 @@
+; exit -> ok.
+; call -> timezone?exit open?exit welcome.
+; text ->
+;      timezone?exit
+;      hour?exit
+;      custom
+;      builtin(Parm).
+
+; Regex:
+; Identifier: [a-z][a-zA-Z0-9\-]*[a-z0-9]
+; Variable: [A-Z][a-zA-Z0-9\-]*[a-z0-9]
+
+<action> ::= <identifier> "-\>" <expr>"."
+<expr> ::= <expr> <fn-call> | <fn-call> | <or-stop>
+<or-stop> ::= <fn-call>"?"<fn-call> | <fn-call>"!"
+<fn-call> ::= <identifier> | <identifier>"("<arguments>")"
+<fn> ::= <identifier>"("<arguments>")" "-\>" <fexpr>"." | <identifier> "-\>" <fexpr>"."
+<fexpr> ::= <expr> <fexpr> | <expr> | <literal>
+<arguments> ::= <variable> | <arguments> <variable>
+<literal> ::= <string> | <number> | <bool>
+<string> ::= "\""<anything>"\""
+<bool> ::= true | false

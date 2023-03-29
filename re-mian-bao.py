@@ -1,4 +1,4 @@
-from brittle.scanner import Scanner
+from remianbao.scanner import Scanner
 import argparse
 import sys
 

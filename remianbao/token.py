@@ -1,5 +1,5 @@
 from typing import Any
-from brittle.tokentype import TokenType
+from remianbao.tokentype import TokenType
 
 
 class Token:

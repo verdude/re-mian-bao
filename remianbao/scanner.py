@@ -1,5 +1,5 @@
-from brittle.token import Token
-from brittle.tokentype import TokenType
+from remianbao.token import Token
+from remianbao.tokentype import TokenType
 
 
 class Scanner:

@@ -23,3 +23,5 @@ class TokenType(Enum):
     # keywords
     true = 11
     false = 12
+
+    invalid = 13

@@ -1,3 +1,4 @@
+from typing import Optional
 from remianbao.token import Token
 from remianbao.tokentype import TokenType
 
@@ -8,29 +9,41 @@ class Scanner:
         self.tokens = []
         self.file = open(filename, "r")
 
-    def scan(self):
-        while self.get_token():
-            self.tokens.append(self.curr_token)
+        self.idre = r"[a-z][a-zA-Z0-9\-]*[a-z0-9]"
 
-    def get_token(self):
+    def scan(self):
+        print("scanning")
+        while self.get_token():
+            print(self.curr_token)
+            self.tokens.append(self.curr_token)
+        print("done scanning")
+        return self.tokens
+
+    def get_identifier(self) -> Optional[str]:
+
+
+
+    def get_token(self) -> bool:
         c = self.file.read(1)
 
         if c == "?":
-            tt = TokenType.questionmark
+            self.curr_token = Token(tt=TokenType.questionmark, literal=c)
         elif c == "!":
-            tt = TokenType.bang
+            self.curr_token = Token(tt=TokenType.bang, literal=c)
         elif c == "(":
-            tt = TokenType.leftparen
+            self.curr_token = Token(tt=TokenType.leftparen, literal=c)
         elif c == ")":
-            tt = TokenType.rightparen
+            self.curr_token = Token(tt=TokenType.rightparen, literal=c)
         elif c == ".":
-            tt = TokenType.dot
+            self.curr_token = Token(tt=TokenType.dot, literal=c)
         elif c == "-":
-            tt = TokenType.dash
+            self.curr_token = Token(tt=TokenType.dash, literal=c)
         elif c.islower():
-            tt = TokenType.bang
+            self.curr_token = Token(tt=TokenType.bang, literal=c)
         elif c == "!": # upper
-            tt = TokenType.bang
+            self.curr_token = Token(tt=TokenType.bang, literal=c)
         else:
             print("invalid char", c)
-            return
+            self.curr_token = None
+
+        return self.curr_token is not None

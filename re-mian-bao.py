@@ -20,6 +20,7 @@ def get_filename():
 def main(filename):
     scanner = Scanner(filename)
     tokens = scanner.scan()
+    print(tokens)
 
 if __name__ == "__main__":
     filename = get_filename()

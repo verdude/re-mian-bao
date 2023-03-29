@@ -23,6 +23,9 @@ class Scanner:
                 line = line[tokenlength:].lstrip()
 
     def scan(self):
+        # TODO: Allow for multiple scans of different
+        # files with the same scanner instance.
+        # Move file and other variable initialization here.
         print("scanning")
 
         for line in self._lines:

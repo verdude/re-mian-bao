@@ -1,0 +1,43 @@
+[GLOBAL]
+pants_version = "2.15.0"
+backend_packages = [
+  "pants.backend.python",
+  "pants.backend.shell",
+  "pants.backend.docker",
+  "pants.backend.awslambda.python",
+  "pants.backend.python",
+  "pants.backend.python.typecheck.mypy",
+  "pants.backend.python.lint.autoflake",
+  "pants.backend.python.lint.black",
+  "pants.backend.python.lint.flake8",
+  "pants.backend.python.lint.isort",
+  "pants.backend.python.lint.pyupgrade",
+  "pants.backend.python.lint.pylint",
+  "pants.backend.python.lint.bandit",
+  "pants.backend.python.lint.docformatter",
+]
+
+pants_ignore = [
+  "/dist/",
+  "__pycache__",
+]
+
+[python]
+interpreter_constraints = ["CPython==3.9.*"]
+enable_resolves = true
+
+[python.resolves]
+python-default = "3rdparty/default.lock"
+
+[python-bootstrap]
+search_path = ["<PYENV>"]
+
+[pytest]
+args = ["-vv", "-rPx"]
+
+[repl]
+shell = "ipython"
+
+[anonymous-telemetry]
+enabled = true
+repo_id = "d87e53a55a6bda776a10f4ee9e64d10c287707f9"

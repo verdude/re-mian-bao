@@ -1,14 +1,20 @@
-from remianbao.scanner import Scanner
 import argparse
 import sys
+
+from remianbao.scanner import Scanner
 
 
 def parse_options():
     parser = argparse.ArgumentParser(description="Send Text", add_help=True)
 
-    parser.add_argument("-d", "--debug", action="store_true", help="set logging to debug")
-    parser.add_argument("-q", "--quiet", action="store_true", help="set logging to quiet")
+    parser.add_argument(
+        "-d", "--debug", action="store_true", help="set logging to debug"
+    )
+    parser.add_argument(
+        "-q", "--quiet", action="store_true", help="set logging to quiet"
+    )
     return parser.parse_args()
+
 
 def get_filename():
     if len(sys.argv) <= 1:
@@ -17,12 +23,14 @@ def get_filename():
 
     return sys.argv[1]
 
+
 def main(filename):
     scanner = Scanner(filename)
     tokens = scanner.scan()
     print(tokens)
 
+
 if __name__ == "__main__":
     filename = get_filename()
-    #options = parse_options()
+    # options = parse_options()
     main(filename)

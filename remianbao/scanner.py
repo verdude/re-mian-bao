@@ -1,5 +1,6 @@
 import re
-from typing import Optional, Iterator
+from typing import Iterator
+
 from remianbao.token import Token
 from remianbao.tokentype import TokenType
 
@@ -43,7 +44,6 @@ class Scanner:
         except StopIteration:
             print("should stop")
 
-
     def scantoken(self, line: str):
         c = line[0]
         if c == "?":
@@ -63,7 +63,13 @@ class Scanner:
                 return
             literal = match.group(0)
             value = match.group(1)
-            self._savetk(Token(tt=TokenType.string, literal=literal, value=value))
+            self._savetk(
+                Token(
+                    tt=TokenType.string,
+                    literal=literal,
+                    value=value,
+                )
+            )
         elif c == "-":
             if line[1] != ">":
                 self.error = True

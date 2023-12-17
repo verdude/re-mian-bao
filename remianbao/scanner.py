@@ -21,9 +21,11 @@ class Scanner:
     def _start_gen(self) -> Iterator[str]:
         gen = (line for line in self._file.readlines())
         for line in gen:
+            col = 0
             while len(line) > 0:
-                tokenlength = (yield line) or 1
+                tokenlength = (yield (line, col)) or 1
                 line = line[tokenlength:].lstrip()
+                col += tokenlength
 
     def scan(self):
         # TODO: Allow for multiple scans of different
@@ -46,7 +48,8 @@ class Scanner:
         except StopIteration:
             print("should stop")
 
-    def scantoken(self, line: str):
+    def scantoken(self, lineinfo: (str, int)):
+        line, col = lineinfo
         c = line[0]
         if c == "?":
             self._savetk(Token(tt=TokenType.questionmark, literal=c))
@@ -66,6 +69,7 @@ class Scanner:
                     Err(
                         msg=Messages.strerror,
                         line=line,
+                        offsets=set(range(col, col+len(line)))
                     )
                 )
                 return
@@ -81,6 +85,11 @@ class Scanner:
         elif c == "-":
             if line[1] != ">":
                 self.error = True
+                self.errors.append(
+                    msg=Messages.tkerror,
+                    line=line,
+                    offsets={col},
+                )
                 return
             self._savetk(Token(tt=TokenType.dash, literal="->"))
         elif c.islower():

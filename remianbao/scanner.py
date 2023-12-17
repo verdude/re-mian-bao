@@ -3,6 +3,7 @@ from typing import Iterator
 
 from remianbao.token import Token
 from remianbao.tokentype import TokenType
+from remianbao.errors import Err, Messages
 
 
 class Scanner:
@@ -11,6 +12,7 @@ class Scanner:
         self.tokens = []
         self._file = open(filename, "r")
         self.error = False
+        self.errors = []
 
         self.idre = r"[a-z][a-zA-Z0-9\-]*[a-z0-9]"
         self.strre = r'"(.*)"'
@@ -20,7 +22,7 @@ class Scanner:
         gen = (line for line in self._file.readlines())
         for line in gen:
             while len(line) > 0:
-                tokenlength = yield line
+                tokenlength = (yield line) or 1
                 line = line[tokenlength:].lstrip()
 
     def scan(self):
@@ -60,6 +62,12 @@ class Scanner:
             match = re.search(f"^{self.strre}", line)
             if not match:
                 self.error = True
+                self.errors.append(
+                    Err(
+                        msg=Messages.strerror,
+                        line=line,
+                    )
+                )
                 return
             literal = match.group(0)
             value = match.group(1)

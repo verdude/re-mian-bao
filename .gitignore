@@ -2,3 +2,6 @@ __pycache__
 /.pants.*
 /dist/
 /.pids
+*.tab.*
+*.c
+parser*

@@ -1,4 +1,4 @@
 hello -> print("hey").
 fallback -> hello.
-main "hihow are you->
+main ->
     hello.
